@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/v1/phone', [ProductController::class, 'getAllData']);
 Route::post('/v1/phone/create', [ProductController::class, 'createData']);
+Route::get('/v1/phone/get/{uuid}', [ProductController::class, 'getDataByUuid']);
