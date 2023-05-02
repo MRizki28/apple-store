@@ -60,6 +60,30 @@ class ProductController extends Controller
             'data' => $data
         ]);
     }
+
+    public function getDataByUuid( $uuid)
+    {
+
+        if (!Uuid::isValid($uuid)) {
+            return response()->json([
+                'code' => 400,
+                'message' => 'UUID Invalid'
+            ]);
+        }
+
+        $data = ProductModel::where('uuid' , $uuid)->with('detail')->first();
+        if ($data == null) {
+            return response()->json([
+                'message' => 'data not found'
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'success get data ' ,
+                'data' => $data,            
+            ]);
+        }
+       
+    }
     
 
 
