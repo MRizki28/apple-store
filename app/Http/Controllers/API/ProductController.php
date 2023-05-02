@@ -22,10 +22,10 @@ class ProductController extends Controller
 
     public function createData(Request $request)
     {
-        $validation = Validator::make($request->all(),[
+        $validation = Validator::make($request->all(), [
             'product_name' => 'required',
             'product_model' => 'required',
-            'price' => 'required' ,
+            'price' => 'required',
             'stock' => 'required'
         ]);
 
@@ -61,7 +61,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function getDataByUuid( $uuid)
+    public function getDataByUuid($uuid)
     {
 
         if (!Uuid::isValid($uuid)) {
@@ -71,20 +71,33 @@ class ProductController extends Controller
             ]);
         }
 
-        $data = ProductModel::where('uuid' , $uuid)->with('detail')->first();
+        $data = ProductModel::where('uuid', $uuid)->with('detail')->first();
         if ($data == null) {
             return response()->json([
                 'message' => 'data not found'
             ]);
-        }else{
+        } else {
             return response()->json([
-                'message' => 'success get data ' ,
-                'data' => $data,            
+                'message' => 'success get data ',
+                'data' => $data,
             ]);
         }
-       
     }
-    
 
+    public function deleteData($uuid)
+    {
+        if (!Uuid::isValid($uuid)) {
+            return response()->json([
+                'code' => 400,
+                'message' => 'UUID Invalid'
+            ]);
+        }
 
+        $data = ProductModel::where('uuid', $uuid)->first();
+        $data->delete();
+        return response()->json([
+            'code' => 200,
+            'message' => 'success delete data',
+        ]);
+    }
 }
