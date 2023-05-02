@@ -18,4 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/hp', [ProductController::class, 'index']);
+Route::get('/v1/phone', [ProductController::class, 'getAllData']);
+Route::post('/v1/phone/create', [ProductController::class, 'createData']);
