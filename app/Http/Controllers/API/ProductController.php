@@ -13,11 +13,17 @@ class ProductController extends Controller
     public function getAllData()
     {
         $data = ProductModel::with('detail')->get();
-        return response()->json([
-            'code' => 200,
-            'message' => 'success',
-            'data' => $data
-        ]);
+        if ($data->isEmpty()) {
+            return response()->json([
+                'message' => 'data not found'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'success get data',
+                'data' => $data
+            ]);
+        }
+     
     }
 
     public function createData(Request $request)
