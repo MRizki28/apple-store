@@ -10,6 +10,6 @@ class DetailModel extends Model
     use HasFactory;
     protected $table ='tb_detail';
     protected $fillable = [
-        'id' ,'ram' ,'storage','os','cpu','baterry','camera','created_at','update_at'
+        'id' ,'uuid', 'image_phone','ram' ,'storage','os','cpu','baterry','camera','created_at','update_at'
     ];
 }
