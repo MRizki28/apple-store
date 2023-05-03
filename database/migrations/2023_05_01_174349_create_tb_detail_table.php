@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('tb_detail', function (Blueprint $table) {
             $table->id();
+            $table->text('uuid');
+            $table->string('image_phone');
             $table->string('ram');
             $table->string('storage');
             $table->string('os');
