@@ -23,7 +23,7 @@ class ProductModel extends Model
     public function getProductDetail($detail_id)
     {
         $data = $this->join('tb_detail', 'tb_product.detail_id', '=', 'tb_detail.id')
-            ->select('tb_detail.ram', 'tb_detail.storage', 'tb_detail.os', 'tb_detail.cpu', 'tb_detail.baterry', 'tb_detail.camera')
+            ->select('tb_detail.uuid','tb_detail.image_phone','tb_detail.ram', 'tb_detail.storage', 'tb_detail.os', 'tb_detail.cpu', 'tb_detail.baterry', 'tb_detail.camera')
             ->where('tb_product.detail_id', '=', $detail_id)
             ->first();
 
