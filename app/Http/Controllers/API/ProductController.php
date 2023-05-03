@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use Ramsey\Uuid\Uuid;
 use App\Models\ProductModel;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Ramsey\Uuid\Uuid;
 
 class ProductController extends Controller
 {
@@ -95,9 +95,16 @@ class ProductController extends Controller
 
         $data = ProductModel::where('uuid', $uuid)->first();
         $data->delete();
-        return response()->json([
-            'code' => 200,
-            'message' => 'success delete data',
-        ]);
+        try {
+            return response()->json([
+                'code' => 200,
+                'message' => 'success delete data',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'failed delete data',
+                'errors' => $th->getMessage()
+            ]);
+        }
     }
 }
