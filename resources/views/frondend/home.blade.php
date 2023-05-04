@@ -12,8 +12,8 @@
                     <div class="container">
                         <div class="carousel-caption">
                             <div class="text-bg">
-                                <h1> <span class="blu">Welcome <br></span>To Our Sunglasses</h1>
-                                <figure><img src="images/banner_img.png" alt="#" /></figure>
+                                <h1> <span class="blu">Welcome <br></span>To Ibox Store</h1>
+                                <figure><img src="images/ip14.png" alt="#" /></figure>
                                 <a class="read_more" href="#">Shop Now</a>
                             </div>
                         </div>
@@ -23,8 +23,8 @@
                     <div class="container">
                         <div class="carousel-caption">
                             <div class="text-bg">
-                                <h1> <span class="blu">Welcome <br></span>To Our Sunglasses</h1>
-                                <figure><img src="images/banner_img.png" alt="#" /></figure>
+                                <h1> <span class="blu">Welcome <br></span>To Ibox Store</h1>
+                                <figure><img src="images/ip14pro.png" alt="#" /></figure>
                                 <a class="read_more" href="#">Shop Now</a>
                             </div>
                         </div>
@@ -34,8 +34,8 @@
                     <div class="container">
                         <div class="carousel-caption">
                             <div class="text-bg">
-                                <h1> <span class="blu">Welcome <br></span>To Our Sunglasses</h1>
-                                <figure><img src="images/banner_img.png" alt="#" /></figure>
+                                <h1> <span class="blu">Welcome <br></span>To Ibox Store</h1>
+                                <figure><img src="images/ip13.png" alt="#" /></figure>
                                 <a class="read_more" href="#">Shop Now</a>
                             </div>
                         </div>
@@ -57,16 +57,21 @@
             <div class="row d_flex">
                 <div class="col-md-5">
                     <div class="about_img">
-                        <figure><img src="images/about_img.png" alt="#" /></figure>
+                        <figure><img src="images/ip8.png" alt="#" /></figure>
                     </div>
                 </div>
                 <div class="col-md-7">
                     <div class="titlepage">
                         <h2>About Our Shop</h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                            alteration in some form, by injected humour, or randomised words which don't look even slightly
-                            believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
-                            anything embarrassing hidden in the middle of text.</p>
+                        <p>
+
+                            iBox adalah merek teknologi yang menawarkan produk inovatif dan berkualitas tinggi untuk
+                            memenuhi kebutuhan gaya hidup modern. Kami berkomitmen memberikan pengalaman belanja yang luar
+                            biasa dengan pelayanan pelanggan yang terbaik dan harga yang kompetitif. Kami bekerja sama
+                            dengan merek-merek terkemuka untuk membawa teknologi terbaru ke konsumen Indonesia. Dapatkan
+                            produk teknologi andal dan terbaru di iBox, tempat belanja yang menyenangkan dan memuaskan bagi
+                            pelanggan.
+                        </p>
                     </div>
                     <a class="read_more" href="#">Read More</a>
                 </div>
