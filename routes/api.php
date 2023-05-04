@@ -26,3 +26,4 @@ Route::get('/v1/phone/get/{uuid}', [ProductController::class, 'getDataByUuid']);
 
 Route::get('/v2/detail', [DetailProductController::class ,'getAllData']);
 Route::post('/v2/detail/create' , [DetailProductController::class, 'createData']);
+Route::get('/v2/detail/get/{uuid}' , [DetailProductController::class, 'getDataByUuid']);
