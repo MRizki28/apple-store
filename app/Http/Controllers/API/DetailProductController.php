@@ -15,15 +15,14 @@ class DetailProductController extends Controller
     public function getAllData()
     {
         $data = DetailModel::all();
-        if ($data !== null) {
+        if ($data->isEmpty()) {
             return response()->json([
-                'code' => 401,
-                'message' => 'data not found',
+                'message' => 'data not found'
             ]);
         } else {
             return response()->json([
                 'code' => 200,
-                'message' => 'success get all data',
+                'message' => 'success get data',
                 'data' => $data
             ]);
         }
@@ -90,6 +89,22 @@ class DetailProductController extends Controller
         return response()->json([
             'code' => 200,
             'message' => 'success insert data',
+            'data' => $data
+        ]);
+    }
+
+    public function getDataByUuid($uuid)
+    {
+        if (!Uuid::isValid($uuid)) {
+            return response()->json([
+                'code' => 402,
+                'message' => 'uuid invalid'
+            ]);
+        }
+        $data =  DetailModel::where('uuid', $uuid)->first();
+        return response()->json([
+            'code' => 200,
+            'message' => 'success get data by uuid',
             'data' => $data
         ]);
     }
