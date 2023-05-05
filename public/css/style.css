@@ -307,7 +307,6 @@ button {
 
 .header {
      width: 100%;
-     padding: 3px 34px;
      background: black;
      position: absolute;
      z-index: 999;
@@ -322,7 +321,7 @@ button {
 /** banner section **/
 
 .banner_main {
-     background: #f5f6f6;
+     background: #000000;
      padding: 198px 0px 90px 0px;
 }
 
@@ -331,7 +330,7 @@ button {
 }
 
 .text-bg h1 {
-     color: #070404;
+     color: white;
      font-size: 60px;
      line-height: 76px;
      padding-bottom: 45px;
@@ -362,10 +361,10 @@ button {
      width: 62px;
      height: 60px;
      background: transparent;
-     border: #1a1a1a solid 2px;
+     border: white solid 2px;
      opacity: 1;
      font-size: 30px;
-     color: #131215;
+     color: white;
      border-radius: 60px;
      top: 43%;
 }
@@ -422,10 +421,30 @@ button {
      font-weight: 500;
      border-radius: 40px;
 }
+.read_more1 {
+     font-size: 17px;
+     background-color: transparent;
+     border: #ffffff solid 2px;
+     color: white;
+     padding: 15px 0px;
+     width: 100%;
+     max-width: 222px;
+     text-align: center;
+     display: inline-block;
+     transition: ease-in all 0.5s;
+     font-weight: 500;
+     border-radius: 40px;
+}
 
 .read_more:hover {
-     background: #03cafc;
+     background: #1a1a1a;
      color: #fff !important;
+     transition: ease-in all 0.5s;
+}
+
+.read_more1:hover {
+     background: white;
+     color: black !important;
      transition: ease-in all 0.5s;
 }
 
@@ -504,15 +523,15 @@ button {
 }
 
 .blu {
-     color: #03cafc;
+     color: white;
      text-transform: initial;
 }
 
 .glasses .glasses_box {
      text-align: center;
      border: #555556 solid 1px;
-     border-radius: 2px;
-     padding: 120px 0px 30px 0px;
+     border-radius: 5px;
+     padding: 43px 0px 30px 0px;
      margin-bottom: 30px;
 }
 
@@ -838,3 +857,18 @@ ul.location_icon li a {
 .shop {
      margin-bottom: 90px;
 }
+
+.fixed-top {
+     position: fixed;
+     top: 0;
+     width: 100%;
+     padding: 10px 10px;
+     z-index: 1000;
+     background-color: #000000; /* warna latar belakang yang Anda inginkan */
+     transition: background-color 0.3s ease-in-out; /* efek transisi ketika di-scroll */
+ }
+ 
+ .fixed-top.scrolled {
+     background-color: #000000; /* warna latar belakang yang berbeda ketika di-scroll */
+ }
+ 
