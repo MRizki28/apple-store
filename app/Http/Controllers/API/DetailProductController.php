@@ -55,7 +55,7 @@ class DetailProductController extends Controller
         if ($validation->fails()) {
             return response()->json([
                 'code' => 401,
-                'message' => 'check your validation' ,
+                'message' => 'check your validation',
                 'errors' => $validation->errors()
             ]);
         }
@@ -75,7 +75,7 @@ class DetailProductController extends Controller
             $data->storage = $request->input('storage');
             $data->os = $request->input('os');
             $data->cpu = $request->input('cpu');
-            $data->baterry =$request->input('baterry');
+            $data->baterry = $request->input('baterry');
             $data->camera = $request->input('camera');
             $data->save();
         } catch (\Throwable $th) {
@@ -105,6 +105,63 @@ class DetailProductController extends Controller
         return response()->json([
             'code' => 200,
             'message' => 'success get data by uuid',
+            'data' => $data
+        ]);
+    }
+
+    public function updateData(Request $request, $uuid)
+    {
+        $validation = $request->validate([
+            'image_phone' => 'required|image|max:2048',
+            'ram' => 'required',
+            'storage' => 'required',
+            'os' => 'required',
+            'cpu' => 'required',
+            'baterry' => 'required',
+            'camera' => 'required'
+        ], [
+            'image_phone.required' => 'Form Image Tidak boleh kosong',
+            'image_phone.max' =>  'Ukuran gambar tidak boleh lebih dari 2MB',
+            'ram.required' => 'Form ram tidak boleh kosong',
+            'storage' => 'Form storage tidak boleh kosong',
+            'os' => 'Form Os tidak boleh kosong',
+            'cpu' => 'Form CPU tidak boleh kosong',
+            'baterry' => 'Form baterry tidak boleh kosong',
+            'camera' => 'Form camera tidak boleh kosong'
+        ]);
+
+        try {
+            $data = DetailModel::findOrFail($uuid);
+            if ($request->hasFile('image_phone')) {
+                $file = $request->file('image_phone');
+                $extention = $file->getClientOriginalExtension();
+                $filename = 'PHONE-' . Str::random(15) . '.' . $extention;
+                Storage::makeDirectory('uploads/phone/');
+                $file->move(public_path('uploads/phone/'), $filename);
+                $old_file_path = public_path('uploads/phone/') . $data->image_phone;
+                if (file_exists($old_file_path)) {
+                    unlink($old_file_path);
+                }
+                $data->image_phone = $filename;
+            }
+            $data->ram = $request->input('ram');
+            $data->storage = $request->input('storage');
+            $data->os = $request->input('os');
+            $data->cpu = $request->input('cpu');
+            $data->baterry = $request->input('baterry');
+            $data->camera = $request->input('camera');
+            $data->save();
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 200,
+                'message' => 'failed update data',
+                'errors' => $th->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'success update data',
             'data' => $data
         ]);
     }
