@@ -1,5 +1,6 @@
 @extends('layoutsfe.base')
 @section('content')
+
     <section class="banner_main">
         <div id="banner1" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -14,7 +15,7 @@
                             <div class="text-bg">
                                 <h1> <span class="blu">Welcome <br></span>To Ibox Store</h1>
                                 <figure><img src="images/ip14.png" alt="#" /></figure>
-                                <a class="read_more" href="#">Shop Now</a>
+                                <a class="read_more1" href="#">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -25,7 +26,7 @@
                             <div class="text-bg">
                                 <h1> <span class="blu">Welcome <br></span>To Ibox Store</h1>
                                 <figure><img src="images/ip14pro.png" alt="#" /></figure>
-                                <a class="read_more" href="#">Shop Now</a>
+                                <a class="read_more1" href="#">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -36,7 +37,7 @@
                             <div class="text-bg">
                                 <h1> <span class="blu">Welcome <br></span>To Ibox Store</h1>
                                 <figure><img src="images/ip13.png" alt="#" /></figure>
-                                <a class="read_more" href="#">Shop Now</a>
+                                <a class="read_more1" href="#">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -85,7 +86,7 @@
             <div class="row">
                 <div class="col-md-10 offset-md-1">
                     <div class="titlepage">
-                        <h2>Our Glasses</h2>
+                        <h2>Our Iphones</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labor
                             e et dolore magna aliqua. Ut enim ad minim veniam, qui
@@ -95,68 +96,10 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="glasses_box">
-                        <figure><img src="images/glass1.png" alt="#" /></figure>
-                        <h3><span class="blu">$</span>50</h3>
-                        <p>Sunglasses</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="glasses_box">
-                        <figure><img src="images/glass2.png" alt="#" /></figure>
-                        <h3><span class="blu">$</span>50</h3>
-                        <p>Sunglasses</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="glasses_box">
-                        <figure><img src="images/glass3.png" alt="#" /></figure>
-                        <h3><span class="blu">$</span>50</h3>
-                        <p>Sunglasses</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="glasses_box">
-                        <figure><img src="images/glass4.png" alt="#" /></figure>
-                        <h3><span class="blu">$</span>50</h3>
-                        <p>Sunglasses</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="glasses_box">
-                        <figure><img src="images/glass5.png" alt="#" /></figure>
-                        <h3><span class="blu">$</span>50</h3>
-                        <p>Sunglasses</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="glasses_box">
-                        <figure><img src="images/glass6.png" alt="#" /></figure>
-                        <h3><span class="blu">$</span>50</h3>
-                        <p>Sunglasses</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="glasses_box">
-                        <figure><img src="images/glass7.png" alt="#" /></figure>
-                        <h3><span class="blu">$</span>50</h3>
-                        <p>Sunglasses</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="glasses_box">
-                        <figure><img src="images/glass8.png" alt="#" /></figure>
-                        <h3><span class="blu">$</span>50</h3>
-                        <p>Sunglasses</p>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <a class="read_more" href="#">Read More</a>
-                </div>
+            <div class="row" id="phone-cards">
             </div>
         </div>
+        
     </div>
     <!-- end Our  Glasses section -->
     <!-- Our shop section -->
@@ -171,7 +114,7 @@
                 <div class="col-md-7 padding_right0">
                     <div class="max_width">
                         <div class="titlepage">
-                            <h2>Best SunGlasses At Our shop</h2>
+                            <h2>Best Product At Our shop</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                                 labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                                 laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
@@ -313,4 +256,37 @@
         </div>
     </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+    $.ajax({
+        url: "api/v1/phone",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            // menampilkan semua data
+            for (var i = 0; i < data.data.length; i++) {
+                var phone = data.data[i];
+                var card = '<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">' +
+                    '<div class="card glasses_box">' +
+                    '<figure><img src="/uploads/phone/' + phone.detail.image_phone +
+                    '" alt="#" /></figure>' +
+                    '<h3><span class="blu">$' + phone.price + '</span></h3>' +
+                    '<p>' + phone.product_name + '</p>' +
+                    '<a class="read_more" href="#">Shop Now'+ '</a>'
+                    '</div>' +
+                    '</div>';
+                $('#phone-cards').append(card);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText);
+        }
+    });
+});
+
+    </script>
 @endsection
