@@ -7,6 +7,9 @@ use App\Models\ProductModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class ProductController extends Controller
 {
@@ -23,17 +26,28 @@ class ProductController extends Controller
                 'data' => $data
             ]);
         }
-     
     }
 
     public function createData(Request $request)
     {
-        $validation = Validator::make($request->all(), [
-            'product_name' => 'required',
-            'product_model' => 'required',
-            'price' => 'required',
-            'stock' => 'required'
-        ]);
+        $validation = Validator::make(
+            $request->all(),
+            [
+                'product_name' => 'required',
+                'product_model' => 'required',
+                'price' => 'required',
+                'stock' => 'required',
+                'image_phone' => 'required|image|max:2048',
+            ],
+            [
+                'product_name.required' => 'Form product name tidak boleh kosong',
+                'product_model.required' => 'Form product model tidak boleh kosong',
+                'price.required' => 'Form price tidak boleh kosong',
+                'stock.required' => 'Form required tidak boleh kosong',
+                'image_phone.required' => 'Form Image Tidak boleh kosong',
+                'image_phone.max' =>  'Ukuran gambar tidak boleh lebih dari 2MB',
+            ]
+        );
 
         if ($validation->fails()) {
             return response()->json([
@@ -50,6 +64,14 @@ class ProductController extends Controller
             $data->product_model = $request->input('product_model');
             $data->price = $request->input('price');
             $data->stock = $request->input('stock');
+            if ($request->hasFile('image_phone')) {
+                $file = $request->file('image_phone');
+                $extention = $file->getClientOriginalExtension();
+                $filename = 'PHONE-' . Str::random(15) . '.' . $extention;
+                Storage::makeDirectory('uploads/phone/');
+                $file->move(public_path('uploads/phone/'), $filename);
+                $data->image_phone = $filename;
+            }
             $data->detail_id = $request->input('detail_id');
             $data->save();
         } catch (\Throwable $th) {
@@ -88,6 +110,59 @@ class ProductController extends Controller
                 'data' => $data,
             ]);
         }
+    }
+
+    public function updateDataByUuid(Request $request ,$uuid)
+    {
+        $validation = $request->validate([
+            'product_name' => 'required',
+            'product_model' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'image_phone' => 'required|image|max:2048',
+        ],
+        [
+            'product_name.required' => 'Form product name tidak boleh kosong',
+            'product_model.required' => 'Form product model tidak boleh kosong',
+            'price.required' => 'Form price tidak boleh kosong',
+            'stock.required' => 'Form required tidak boleh kosong',
+            'image_phone.required' => 'Form Image Tidak boleh kosong',
+            'image_phone.max' =>  'Ukuran gambar tidak boleh lebih dari 2MB',
+        ]);
+
+        try {
+            $data = ProductModel::findOrFail($uuid);
+            $data->product_name = $request->input('product_name');
+            $data->product_model = $request->input('product_model');
+            $data->price = $request->input('price');
+            $data->stock = $request->input('stock');
+            if ($request->hasFile('image_phone')) {
+                $file = $request->file('image_phone');
+                $extention = $file->getClientOriginalExtension();
+                $filename = 'PHONE-' . Str::random(15) . '.' . $extention;
+                Storage::makeDirectory('uploads/phone/');
+                $file->move(public_path('uploads/phone/'), $filename);
+                $old_file_path = public_path('uploads/phone/') . $data->image_phone;
+                if (file_exists($old_file_path)) {
+                    unlink($old_file_path);
+                }
+                $data->image_phone = $filename;
+            }
+            $data->detail_id = $request->input('detail_id');
+            $data->save();
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 401,
+                'message' => 'failed update data'
+            ]);
+        }
+
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'success update',
+            'data' => $data
+        ]);
     }
 
     public function deleteData($uuid)
