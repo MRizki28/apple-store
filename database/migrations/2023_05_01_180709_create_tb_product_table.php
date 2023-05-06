@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('product_model');
             $table->integer('price');
             $table->integer('stock');
+            $table->string('image_phone');
             $table->timestamps();
         });
     }
