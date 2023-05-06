@@ -270,11 +270,12 @@
             // menampilkan semua data
             for (var i = 0; i < data.data.length; i++) {
                 var phone = data.data[i];
+                phone.price = Number(phone.price).toLocaleString('en');
                 var card = '<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">' +
                     '<div class="card glasses_box">' +
-                    '<figure><img src="/uploads/phone/' + phone.detail.image_phone +
+                    '<figure><img src="/uploads/phone/' + phone.image_phone +
                     '" alt="#" /></figure>' +
-                    '<h3><span class="blu">$' + phone.price + '</span></h3>' +
+                    '<h3><span class="blu">Rp.' + phone.price + '</span></h3>' +
                     '<p>' + phone.product_name + '</p>' +
                     '<a class="read_more" href="#">Shop Now'+ '</a>'
                     '</div>' +
