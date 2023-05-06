@@ -19,12 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/v1/phone', [ProductController::class, 'getAllData']);
-Route::post('/v1/phone/create', [ProductController::class, 'createData']);
-Route::get('/v1/phone/get/{uuid}', [ProductController::class, 'getDataByUuid']);
 
-
-Route::get('/v2/detail', [DetailProductController::class ,'getAllData']);
-Route::post('/v2/detail/create' , [DetailProductController::class, 'createData']);
-Route::get('/v2/detail/get/{uuid}' , [DetailProductController::class, 'getDataByUuid']);
-Route::put('/v2/detail/update/{uuid}' , [DetailProductController::class, 'updateData']);
