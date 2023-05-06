@@ -21,8 +21,8 @@
                                aria-label="Toggle navigation">
                                <span class="navbar-toggler-icon"></span>
                            </button>
-                           <div class="collapse navbar-collapse" id="navbarsExample04">
-                               <ul class="navbar-nav mr-auto font-weight-bold">
+                           <div class="collapse navbar-collapse justify-content-center" id="navbarsExample04">
+                               <ul class="navbar-nav  font-weight-bold">
                                    <li class="nav-item active">
                                        <a class="nav-link mx-3" href="index.html">Home</a>
                                    </li>
