@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\DetailProductController;
+use App\Http\Controllers\API\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('frondend.home');
+});
+
+Route::get('/cms/backend/phone', function () {
+    return view('backend.Phone');
+});
+
+
+
+
+
+Route::prefix('v1')->controller(ProductController::class)->group(function () {
+    Route::get('/phone', 'getAllData');
+    Route::post('/phone/create', 'createData');
+    Route::get('/phone/get/{uuid}', 'getDataByUuid');
+});
+
+Route::prefix('v2')->controller(DetailProductController::class)->group(function () {
+    Route::get('/detail', 'getAllData');
+    Route::post('/detail/create', 'createData');
+    Route::get('/detail/get/{uuid}','getDataByUuid');
+    Route::put('/detail/update/{uuid}',  'updateData');
 });
