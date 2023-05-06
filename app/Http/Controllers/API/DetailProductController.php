@@ -32,7 +32,7 @@ class DetailProductController extends Controller
         $validation = Validator::make(
             $request->all(),
             [
-                'image_phone' => 'required|image|max:2048',
+                
                 'ram' => 'required',
                 'storage' => 'required',
                 'os' => 'required',
@@ -41,14 +41,12 @@ class DetailProductController extends Controller
                 'camera' => 'required'
             ],
             [
-                'image_phone.required' => 'Form Image Tidak boleh kosong',
-                'image_phone.max' =>  'Ukuran gambar tidak boleh lebih dari 2MB',
                 'ram.required' => 'Form ram tidak boleh kosong',
-                'storage' => 'Form storage tidak boleh kosong',
-                'os' => 'Form Os tidak boleh kosong',
-                'cpu' => 'Form CPU tidak boleh kosong',
-                'baterry' => 'Form baterry tidak boleh kosong',
-                'camera' => 'Form camera tidak boleh kosong'
+                'storage.required' => 'Form storage tidak boleh kosong',
+                'os.required' => 'Form Os tidak boleh kosong',
+                'cpu.required' => 'Form CPU tidak boleh kosong',
+                'baterry.required' => 'Form baterry tidak boleh kosong',
+                'camera.required' => 'Form camera tidak boleh kosong'
             ]
         );
 
@@ -132,18 +130,6 @@ class DetailProductController extends Controller
 
         try {
             $data = DetailModel::findOrFail($uuid);
-            if ($request->hasFile('image_phone')) {
-                $file = $request->file('image_phone');
-                $extention = $file->getClientOriginalExtension();
-                $filename = 'PHONE-' . Str::random(15) . '.' . $extention;
-                Storage::makeDirectory('uploads/phone/');
-                $file->move(public_path('uploads/phone/'), $filename);
-                $old_file_path = public_path('uploads/phone/') . $data->image_phone;
-                if (file_exists($old_file_path)) {
-                    unlink($old_file_path);
-                }
-                $data->image_phone = $filename;
-            }
             $data->ram = $request->input('ram');
             $data->storage = $request->input('storage');
             $data->os = $request->input('os');
