@@ -1,6 +1,5 @@
 @extends('layoutsfe.base')
 @section('content')
-
     <section class="banner_main">
         <div id="banner1" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -99,7 +98,7 @@
             <div class="row" id="phone-cards">
             </div>
         </div>
-        
+
     </div>
     <!-- end Our  Glasses section -->
     <!-- Our shop section -->
@@ -261,33 +260,32 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
-    $.ajax({
-        url: "api/v1/phone",
-        type: "GET",
-        dataType: "json",
-        success: function(data) {
-            console.log(data);
-            // menampilkan semua data
-            for (var i = 0; i < data.data.length; i++) {
-                var phone = data.data[i];
-                phone.price = Number(phone.price).toLocaleString('en');
-                var card = '<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">' +
-                    '<div class="card glasses_box">' +
-                    '<figure><img src="/uploads/phone/' + phone.image_phone +
-                    '" alt="#" /></figure>' +
-                    '<h3><span class="blu">Rp.' + phone.price + '</span></h3>' +
-                    '<p>' + phone.product_name + '</p>' +
-                    '<a class="read_more" href="#">Shop Now'+ '</a>'
-                    '</div>' +
-                    '</div>';
-                $('#phone-cards').append(card);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.log(xhr.responseText);
-        }
-    });
-});
-
+            $.ajax({
+                url: "v1/phone",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    // menampilkan semua data
+                    for (var i = 0; i < data.data.length; i++) {
+                        var phone = data.data[i];
+                        phone.price = Number(phone.price).toLocaleString('en');
+                        var card = '<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">' +
+                            '<div class="card glasses_box">' +
+                            '<figure><img src="/uploads/phone/' + phone.image_phone +
+                            '" alt="#" /></figure>' +
+                            '<h3><span class="blu">Rp.' + phone.price + '</span></h3>' +
+                            '<p>' + phone.product_name + '</p>' +
+                            '<a class="read_more" href="#">Shop Now' + '</a>'
+                        '</div>' +
+                        '</div>';
+                        $('#phone-cards').append(card);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
     </script>
 @endsection
