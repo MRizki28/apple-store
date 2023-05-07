@@ -80,16 +80,73 @@
                                 <option value="">-- Pilih Detail --</option>
                             </select>
                         </div>
-
-
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-outline-primary">Submit</button>
                 </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal edit --}}
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditModalLabel">Edit Menu Bazar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEdit" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="uuid" id="uuid">
+                        <div class="form-group">
+                            <label for="product_name">Nama Product</label>
+                            <input type="text" class="form-control" name="product_name" id="eproduct_name"
+                                placeholder="Input Here..">
+                        </div>
+                        <div class="form-group">
+                            <label for="product_model">Product Model</label>
+                            <input type="text" class="form-control" name="product_model" id="eproduct_model"
+                                placeholder="Input Here">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" name="price" id="eprice">
+                        </div>
+                        <div class="form-group">
+                            <label for="stock">Stock</label>
+                            <input type="number" class="form-control" name="stock" id="estock"
+                                placeholder="Input Here">
+                        </div>
+                        <div class="form-group">
+                            <label for="gambar">Gambar</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="eimage_product" name="image_product">
+                                <label class="custom-file-label" for="eimage_product" id="eimage_product-label">Image</label>
+                            </div>
+                            <img src="" alt="" id="preview" class="mx-auto d-block pb-2"
+                                style="max-width: 200px; padding-top: 23px">
+                        </div>
+                        <div class="form-group">
+                            <label for="detail_id">Detail</label>
+                            <select name="detail_id" id="edetail_id" class="form-control">
+                                <option value="">-- Pilih Detail --</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" form="formEdit" class="btn btn-outline-primary">Update Data</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -120,7 +177,7 @@
                         tableBody += "<td>" + item.detail_id + "</td>";
                         tableBody += "<td>" +
                             "<button type='button' class='btn btn-primary edit-modal' data-toggle='modal' data-target='#EditModal' " +
-                            "data-id='" + item.id + "' " +
+                            "data-uuid='" + item.uuid+ "' " +
                             "<i class='fa fa-edit'>Edit</i></button>" +
                             "<button type='button' class='btn btn-danger delete-confirm' data-uuid='" +
                             item.uuid + "'><i class='fa fa-trash'></i></button>" +
@@ -229,6 +286,32 @@
             }
         });
 
+        //edit
+        $(document).on('click', '.edit-modal', function() {
+            var uuid = $(this).data('uuid');
+            $.ajax({
+                url: "{{ url('v1/phone/get') }}/" + uuid,
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(data) {
+                    console.log(data);
+                    $('#uuid').val(data.data.uuid);
+                    $('#eproduct_name').val(data.data.product_name);
+                    $('#eproduct_model').val(data.data.product_model);
+                    $('#eprice').val(data.data.price);
+                    $('#estock').val(data.data.stock);
+                    $('#preview').attr('src', "{{ asset('uploads/phone') }}/" + data.data.image_phone);
+                    $('#edetail_id').val(data.data.detail_id);
+                    $('#EditModal').modal('show');
+                },
+                error: function() {
+                    alert("error");
+                }
+            });
+        });
+
+
+        //delete
         $(document).on('click ', '.delete-confirm', function(e) {
             e.preventDefault();
             var uuid = $(this).data('uuid');
