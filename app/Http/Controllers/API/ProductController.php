@@ -6,6 +6,7 @@ use Ramsey\Uuid\Uuid;
 use App\Models\ProductModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -54,6 +55,7 @@ class ProductController extends Controller
                 'code' => 401,
                 'message' => 'check your validation',
                 'errors' => $validation->errors()
+
             ]);
         }
 
@@ -112,23 +114,25 @@ class ProductController extends Controller
         }
     }
 
-    public function updateDataByUuid(Request $request ,$uuid)
+    public function updateDataByUuid(Request $request, $uuid)
     {
-        $validation = $request->validate([
-            'product_name' => 'required',
-            'product_model' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
-            'image_phone' => 'required|image|max:2048',
-        ],
-        [
-            'product_name.required' => 'Form product name tidak boleh kosong',
-            'product_model.required' => 'Form product model tidak boleh kosong',
-            'price.required' => 'Form price tidak boleh kosong',
-            'stock.required' => 'Form required tidak boleh kosong',
-            'image_phone.required' => 'Form Image Tidak boleh kosong',
-            'image_phone.max' =>  'Ukuran gambar tidak boleh lebih dari 2MB',
-        ]);
+        $validation = $request->validate(
+            [
+                'product_name' => 'required',
+                'product_model' => 'required',
+                'price' => 'required',
+                'stock' => 'required',
+                'image_phone' => 'required|image|max:2048',
+            ],
+            [
+                'product_name.required' => 'Form product name tidak boleh kosong',
+                'product_model.required' => 'Form product model tidak boleh kosong',
+                'price.required' => 'Form price tidak boleh kosong',
+                'stock.required' => 'Form required tidak boleh kosong',
+                'image_phone.required' => 'Form Image Tidak boleh kosong',
+                'image_phone.max' =>  'Ukuran gambar tidak boleh lebih dari 2MB',
+            ]
+        );
 
         try {
             $data = ProductModel::findOrFail($uuid);
@@ -173,10 +177,13 @@ class ProductController extends Controller
                 'message' => 'UUID Invalid'
             ]);
         }
-
-        $data = ProductModel::where('uuid', $uuid)->first();
-        $data->delete();
         try {
+            $data = ProductModel::where('uuid', $uuid)->first();
+            $location = 'uploads/phone/' . $data->image_phone;
+            $data->delete();
+            if ((File::exists($location))) {
+                File::delete($location);
+            }
             return response()->json([
                 'code' => 200,
                 'message' => 'success delete data',
