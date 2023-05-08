@@ -128,8 +128,8 @@
                         <div class="form-group">
                             <label for="gambar">Gambar</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="eimage_product" name="image_product">
-                                <label class="custom-file-label" for="eimage_product" id="eimage_product-label">Image</label>
+                                <input type="file" class="custom-file-input" id="eimage_phone" name="image_phone">
+                                <label class="custom-file-label" for="eimage_phone" id="eimage_phone-label">Image</label>
                             </div>
                             <img src="" alt="" id="preview" class="mx-auto d-block pb-2"
                                 style="max-width: 200px; padding-top: 23px">
@@ -280,6 +280,7 @@
                     options += '<option value="' + item.id + '">' + item.id + '</option>';
                 });
                 $('#detail_id').append(options);
+                $('#edetail_id').append(options);
             },
             error: function() {
                 console.log("Failed to get data from server");
@@ -309,6 +310,60 @@
                 }
             });
         });
+
+        //update
+        $(document).ready(function () { 
+            var formEdit = $('#formEdit');
+
+            formEdit.on('submit', function (e) { 
+                e.preventDefault();
+
+                var uuid = $('#uuid').val();
+                var formData = new FormData(this);
+
+                var file = $('#eimage_phone')[0].files[0];
+                if (!file) {
+                    formData.delete('image_phone');
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('v1/phone/update') }}/" + uuid,
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (data) { 
+                        console.log(data);
+                        Swal.fire({
+                            title: 'Success',
+                            text: 'Data success for update',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: 'OK'
+                        }).then(function() {
+                            location.reload();
+                        });
+                     },
+                     error: function(data) {
+                        var errors = data.responseJSON.errors;
+                        var errorMessage = "";
+
+                        $.each(errors, function(key, value) {
+                            errorMessage += value + "<br>";
+                        });
+
+                        Swal.fire({
+                            title: "Error",
+                            html: errorMessage,
+                            icon: "error",
+                            timer: 5000,
+                            showConfirmButton: true
+                        });
+                    }
+                });
+             });
+         })
 
 
         //delete
