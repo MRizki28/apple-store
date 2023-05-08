@@ -25,6 +25,10 @@ Route::get('/cms/backend/phone', function () {
 Route::post('/cms/backend/phone', function () {
     return view('backend.Phone');
 });
+Route::put('/cms/backend/phone', function () {
+    return view('backend.Phone');
+});
+
 
 
 
@@ -35,6 +39,7 @@ Route::prefix('v1')->controller(ProductController::class)->group(function () {
     Route::get('/phone', 'getAllData');
     Route::post('/phone/create', 'createData');
     Route::get('/phone/get/{uuid}', 'getDataByUuid');
+    Route::put('/phone/update/{uuid}' , 'updateDataByUuid');
     Route::delete('/phone/delete/{uuid}', 'deleteData');
 });
 
