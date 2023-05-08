@@ -114,32 +114,22 @@ class ProductController extends Controller
         }
     }
 
-    public function updateDataByUuid(Request $request, $uuid)
+    public function updateDataByUuid(Request $request , $uuid)
     {
-        $validation = $request->validate(
-            [
-                'product_name' => 'required',
-                'product_model' => 'required',
-                'price' => 'required',
-                'stock' => 'required',
-                'image_phone' => 'required|image|max:2048',
-            ],
-            [
-                'product_name.required' => 'Form product name tidak boleh kosong',
-                'product_model.required' => 'Form product model tidak boleh kosong',
-                'price.required' => 'Form price tidak boleh kosong',
-                'stock.required' => 'Form required tidak boleh kosong',
-                'image_phone.required' => 'Form Image Tidak boleh kosong',
-                'image_phone.max' =>  'Ukuran gambar tidak boleh lebih dari 2MB',
-            ]
-        );
-
+    
+        if (!Uuid::isValid($uuid)) {
+            return response()->json([
+                'code' => 400,
+                'message' => 'UUID Invalid'
+            ]);
+        }
         try {
-            $data = ProductModel::findOrFail($uuid);
+            $data = ProductModel::where('uuid', $uuid)->firstOrFail();
             $data->product_name = $request->input('product_name');
             $data->product_model = $request->input('product_model');
             $data->price = $request->input('price');
             $data->stock = $request->input('stock');
+            $data->detail_id = $request->input('detail_id');
             if ($request->hasFile('image_phone')) {
                 $file = $request->file('image_phone');
                 $extention = $file->getClientOriginalExtension();
@@ -151,13 +141,15 @@ class ProductController extends Controller
                     unlink($old_file_path);
                 }
                 $data->image_phone = $filename;
+
             }
-            $data->detail_id = $request->input('detail_id');
+
+            
             $data->save();
         } catch (\Throwable $th) {
             return response()->json([
                 'code' => 401,
-                'message' => 'failed update data'
+                'message' => $th->getMessage()
             ]);
         }
 
