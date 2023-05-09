@@ -276,7 +276,7 @@
                             '" alt="#" /></figure>' +
                             '<h3><span class="blu">Rp.' + phone.price + '</span></h3>' +
                             '<p>' + phone.product_name + '</p>' +
-                            '<a class="read_more" href="#">Shop Now' + '</a>'
+                            '<a class="read_more" href="/detail/' + phone.uuid + '">Shop Now' + '</a>' +
                         '</div>' +
                         '</div>';
                         $('#phone-cards').append(card);
