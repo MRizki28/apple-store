@@ -33,6 +33,13 @@
              Data Phone
          </a>
      </li>
+     <li class="nav-item {{ request()->is('cms/backend/detail/phone ') ? 'active' : '' }}">
+        <a class="nav-link " href="/cms/backend/detail/phone" style="font-size:14px;" data-target="#collapsePage"
+            aria-expanded="true" aria-controls="collapsePage">
+            <i class="fa-brands fa-product-hunt"></i>
+            Detail Phone
+        </a>
+    </li>
 
      {{-- @endif --}}
 
