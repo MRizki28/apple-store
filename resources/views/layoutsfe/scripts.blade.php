@@ -7,7 +7,11 @@
  <!-- sidebar -->
  <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
  <script src="js/custom.js"></script>
+
+
  <script>
+
+
     // This example adds a marker to indicate the position of Bondi Beach in Sydney,
     // Australia.
     function initMap() {
@@ -23,6 +27,8 @@
         icon: image
       });
     }
+
+    
  </script>
  <!-- google map js -->
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap"></script>
