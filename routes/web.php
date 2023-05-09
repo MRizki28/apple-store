@@ -29,6 +29,10 @@ Route::put('/cms/backend/phone', function () {
     return view('backend.Phone');
 });
 
+Route::get('/detail/{uuid}', function () {
+    return view('frondend.detail');
+});
+
 
 
 
