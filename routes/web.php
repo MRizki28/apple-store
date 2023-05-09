@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\DetailProductController;
+use App\Http\Controllers\API\OrderanController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +33,17 @@ Route::put('/cms/backend/phone', function () {
 Route::get('/detail/{uuid}', function () {
     return view('frondend.detail');
 });
+Route::post('/detail/{uuid}', function () {
+    return view('frondend.detail');
+});
 
+Route::get('cms/backend/detail/phone', function () {
+    return view('backend.DetailPhone');
+});
+
+Route::get('kuitansi/phone/{id}', function () {
+    return view('frondend.kuitansi');
+});
 
 
 
@@ -51,5 +62,12 @@ Route::prefix('v2')->controller(DetailProductController::class)->group(function 
     Route::get('/detail', 'getAllData');
     Route::post('/detail/create', 'createData');
     Route::get('/detail/get/{uuid}','getDataByUuid');
+    Route::put('/detail/update/{uuid}',  'updateData');
+});
+
+Route::prefix('v3')->controller(OrderanController::class)->group(function () {
+    Route::get('/detail', 'getAllData');
+    Route::post('/phone/order', 'createOrderan');
+    Route::get('/order/get/{id}','getDataByid');
     Route::put('/detail/update/{uuid}',  'updateData');
 });
