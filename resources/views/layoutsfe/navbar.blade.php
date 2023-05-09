@@ -8,7 +8,7 @@
                        <div class="full">
                            <div class="center-desk">
                                <div class="logo">
-                                   <a href="index.html"><img src="images/ibox_logo.svg" class="w-25"
+                                   <a href="index.html"><img src="{{ asset('images/ibox_logo.svg') }}" class="w-25"
                                            alt="#" /></a>
                                </div>
                            </div>
