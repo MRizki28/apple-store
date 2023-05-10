@@ -127,6 +127,15 @@
 
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td>Qty</td>
+                                                <td>:</td>
+                                                <td>
+                                                    <input type="text" name="qty" id="qty"
+                                                        class="form-control">
+
+                                                </td>
+                                            </tr>
 
                                             <tr>
                                                 <td>
@@ -152,7 +161,6 @@
         integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        
         $(document).ready(function() {
             // Ambil UUID dari URL
             const uuid = window.location.href.split('/').pop();
@@ -200,7 +208,7 @@
                 var formData = new FormData(this);
                 $.ajax({
                     type: 'POST',
-                    url: '{{ url('v3/phone/order') }}',
+                    url: '{{ url('api/v3/phone/order') }}',
                     data: formData,
                     dataType: 'json',
                     contentType: false,
