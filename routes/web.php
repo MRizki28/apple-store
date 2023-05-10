@@ -67,7 +67,7 @@ Route::prefix('v2')->controller(DetailProductController::class)->group(function 
 
 Route::prefix('v3')->controller(OrderanController::class)->group(function () {
     Route::get('/detail', 'getAllData');
-    Route::post('/phone/order', 'createOrderan');
+    Route::post('/phone/order', 'createOrderan')->name('tambah.Phone');
     Route::get('/order/get/{id}','getDataByid');
     Route::put('/detail/update/{uuid}',  'updateData');
 });
