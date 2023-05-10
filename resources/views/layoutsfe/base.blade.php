@@ -13,6 +13,10 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="SB-Mid-client-wMSrDf1bMOIJq1iD"></script>
+<!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
     <!-- bootstrap css -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <!-- style css -->
