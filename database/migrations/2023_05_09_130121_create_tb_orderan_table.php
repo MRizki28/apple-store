@@ -16,12 +16,16 @@ return new class extends Migration
         Schema::create('tb_orderan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained('tb_product');
+            $table->string('uuid');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('phone_number');
             $table->string('post_code');
             $table->string('city');
             $table->string('detail_state');
+            $table->integer('qty');
+            $table->bigInteger('total_price');
+            $table->string('snapToken');
             $table->timestamps();
         });
     }
