@@ -12,13 +12,24 @@ class OrderanModel extends Model
 
     protected $table = 'tb_orderan';
     protected $fillable = [
-        'id' , 'uuid_product', 'firstname' , 'lastname' , 'phone_number' , 'post_code' , 'city' , 'detail_site'
+        'id' , 'product_id','uuid', 'firstname' , 'lastname' , 'phone_number' , 'post_code' , 'city' , 'detail_site' , 'qty' , 'total_price', 'snapToken'
     ];
 
     public function product()
     {
-        return $this->belongsTo(ProductModel::class, 'product_id');
+        return $this->belongsTo(ProductModel::class);
     }
+
+    public function getProduct($product_id)
+    {
+        $data = $this->join('tb_orderan', 'tb_orderan.product_id', '=', 'tb_product.id')
+            ->select('tb_product.detail_id', 'tb_product.uuid', 'tb_product.product_name', 'tb_product.product_model', 'tb_product.price', 'tb_product.stock', 'tb_product.image_phone')
+            ->where('tb_product.uuid', '=', $product_id)
+            ->first();
+    
+        return $data;
+    }
+    
 
     public function kuitansi()
     {
