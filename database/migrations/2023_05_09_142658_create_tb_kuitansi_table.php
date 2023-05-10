@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_orderan')->constrained('tb_orderan');
             $table->string('number_resi');
-            $table->string('total_price');
             $table->timestamps();
         });
     }
