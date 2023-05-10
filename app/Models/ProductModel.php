@@ -16,11 +16,6 @@ class ProductModel extends Model
         'id', 'uuid', 'product_name', 'product_model', 'price', 'stock', 'detail_id', 'created_at', 'updated_at'
     ];
 
-    public function orderan()
-    {
-        return $this->hasMany(OrderanModel::class, 'product_id', 'id');
-    }
-
 
     public function detail()
     {
