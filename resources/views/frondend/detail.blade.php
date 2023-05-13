@@ -222,6 +222,10 @@
                                 errorMessage += value[0] + "<br>";
                             });
 
+                            if (error.stock) {
+                                errorMessage += "Stock is not enough";
+                            }
+
                             Swal.fire({
                                 title: 'Error',
                                 html: errorMessage,
@@ -229,6 +233,17 @@
                                 timer: 5000,
                                 showConfirmButton: true
                             });
+                        } else if (data.message === 'Stock tidak cukup') {
+                            var errorMessage = data.errors;
+                            Swal.fire({
+                                title: 'Error',
+                                text: errorMessage,
+                                icon: 'error',
+                                timer: 5000,
+                                showConfirmButton: true
+                            });
+
+
                         } else {
                             console.log(data);
                             Swal.fire({
