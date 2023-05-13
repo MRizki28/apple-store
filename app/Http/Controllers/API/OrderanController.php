@@ -23,6 +23,24 @@ class OrderanController extends Controller
 
     public function createOrderan(Request $request)
     {
+        $validation = Validator::make($request->all(), [
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'phone_number' => 'required|numeric',
+            'post_code' => 'required|numeric',
+            'city' => 'required|string',
+            'detail_state' => 'required|string',
+            'qty' => 'required|integer|min:1'
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'code' => 401,
+                'message' => 'check your validation',
+                'errors' => $validation->errors()
+            ]);
+        }
+
         try {
             // Ambil data produk dari database berdasarkan uuid
             $product = ProductModel::where('uuid', $request->product_id)->first();
@@ -37,9 +55,14 @@ class OrderanController extends Controller
             $orderan->detail_state = $request->detail_state;
             $orderan->qty = $request->qty;
             $orderan->total_price = $request->qty * $product->price;
-   
-            
-          
+
+            // Validate stock availability
+            if ($orderan->qty > $product->stock) {
+                return response()->json([
+                    'message' => 'failed',
+                    'errors' => 'Stock tidak cukup'
+                ]);
+            }
 
             // Set your Merchant Server Key
             \Midtrans\Config::$serverKey = config('midtrans.server_key');
@@ -67,13 +90,13 @@ class OrderanController extends Controller
 
             $product->stock -= $request->qty;
             $product->save();
-
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'failed',
                 'errors' => $th->getMessage()
             ]);
         }
+
         // Kirimkan response berisi data orderan yang baru saja dibuat
         return response()->json([
             'status' => 'success',
@@ -82,6 +105,7 @@ class OrderanController extends Controller
             'snapToken' => $snapToken
         ], 201);
     }
+
 
 
     public function getDataById($id)
@@ -95,8 +119,8 @@ class OrderanController extends Controller
             return response()->json([
                 'message' => 'success get data ',
                 'data' => $data,
-                
-               
+
+
             ]);
         }
     }
