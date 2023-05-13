@@ -30,15 +30,20 @@ Route::put('/cms/backend/phone', function () {
     return view('backend.Phone');
 });
 
+
+Route::post('cms/backend/detail/phone', function () {
+    return view('backend.DetailPhone');
+});
+Route::get('cms/backend/detail/phone', function () {
+    return view('backend.DetailPhone');
+});
+
+
 Route::get('/detail/{uuid}', function () {
     return view('frondend.detail');
 });
 Route::post('/detail/{uuid}', function () {
     return view('frondend.detail');
-});
-
-Route::get('cms/backend/detail/phone', function () {
-    return view('backend.DetailPhone');
 });
 
 Route::get('kuitansi/phone/{id}', function () {
