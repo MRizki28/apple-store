@@ -16,12 +16,12 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Uuid</th>
-                                    <th>Product Name</th>
-                                    <th>Product Model</th>
-                                    <th>Price</th>
-                                    <th>Stock</th>
-                                    <th>Product Image</th>
-                                    <th>Detail ID</th>
+                                    <th>Ram</th>
+                                    <th>Storage</th>
+                                    <th>Os</th>
+                                    <th>Cpu</th>
+                                    <th>Baterry</th>
+                                    <th>Camera</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -51,35 +51,34 @@
                         @csrf
                         <input type="hidden" name="uuid">
                         <div class="form-group">
-                            <label for="product_name">Nama Product</label>
-                            <input type="text" class="form-control" name="product_name" id="product_name"
+                            <label for="ram">Ram</label>
+                            <input type="text" class="form-control" name="ram" id="ram"
                                 placeholder="Input Here..">
                         </div>
                         <div class="form-group">
-                            <label for="product_model">Product Model</label>
-                            <input type="text" class="form-control" name="product_model" id="product_model"
+                            <label for="storage">Storage</label>
+                            <input type="text" class="form-control" name="storage" id="storage"
                                 placeholder="Input Here">
                         </div>
                         <div class="form-group">
-                            <label for="price">Price</label>
-                            <input type="number" class="form-control" name="price" id="price">
+                            <label for="os">Os</label>
+                            <input type="text" class="form-control" name="os" id="os">
                         </div>
                         <div class="form-group">
-                            <label for="stock">Stock</label>
-                            <input type="number" class="form-control" name="stock" id="stock"
+                            <label for="cpu">Cpu</label>
+                            <input type="text" class="form-control" name="cpu" id="cpu">
+                        </div>
+                        <div class="form-group">
+                            <label for="baterry">baterry</label>
+                            <input type="text" class="form-control" name="baterry" id="baterry"
                                 placeholder="Input Here">
                         </div>
                         <div class="form-group">
-                            <label for="image_phone">Image</label>
-                            <input type="file" class="form-control" name="image_phone" id="image_phone"
+                            <label for="camera">camera</label>
+                            <input type="text" class="form-control" name="camera" id="camera"
                                 placeholder="Input Here">
                         </div>
-                        <div class="form-group">
-                            <label for="detail_id">Detail</label>
-                            <select name="detail_id" id="detail_id" class="form-control">
-                                <option value="">-- Pilih Detail --</option>
-                            </select>
-                        </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
@@ -154,6 +153,116 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         //get data
-   
+        $(document).ready(function() {
+            $.ajax({
+                url: "{{ url('v2/detail') }}",
+                method: "GET",
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    var tableBody = "";
+                    $.each(response.data, function(index, item) {
+                        tableBody += "<tr>";
+                        tableBody += "<td>" + (index + 1) + "</td>";
+                        tableBody += "<td>" + item.uuid + "</td>";
+                        tableBody += "<td>" + item.ram + "</td>";
+                        tableBody += "<td>" + item.storage + "</td>";
+                        tableBody += "<td>" + item.cpu + "</td>";
+                        tableBody += "<td>" + item.baterry + "</td>";
+                    
+                        tableBody += "<td>" + item.camera + "</td>";
+                        tableBody += "<td>" +
+                            "<button type='button' class='btn btn-primary edit-modal' data-toggle='modal' data-target='#EditModal' " +
+                            "data-uuid='" + item.uuid + "' " +
+                            "<i class='fa fa-edit'>Edit</i></button>" +
+                            "<button type='button' class='btn btn-danger delete-confirm' data-uuid='" +
+                            item.uuid + "'><i class='fa fa-trash'></i></button>" +
+                            "</td>";
+
+                        tableBody += "</tr>";
+                    });
+                    $('#dataTable').DataTable().destroy();
+                    $("#dataTable tbody").empty();
+                    $("#dataTable tbody").append(tableBody);
+                    $('#dataTable').DataTable({
+                        "paging": true,
+                        "ordering": true,
+                        "searching": true
+                    });
+                },
+                error: function() {
+                    console.log("Failed to get data from server");
+                }
+            });
+        });
+
+        //create
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).ready(function() {
+            var formTambah = $('#formTambah');
+
+            formTambah.on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('v2/detail/create') }}",
+                    data: formData,
+                    dataType: "json",
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        if (data.message === 'check your validation') {
+                            var error = data.errors;
+                            var errorMessage = "";
+
+                            $.each(error, function(key, value) {
+                                errorMessage += value[0] + "<br>";
+                            });
+
+                            Swal.fire({
+                                title: 'Error',
+                                html: errorMessage,
+                                icon: 'error',
+                                timer: 5000,
+                                showConfirmButton: true
+                            });
+                        } else {
+                            console.log(data);
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Data success create',
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonText: 'OK',
+                            }).then(function() {
+                                location.reload();
+                            });
+                        }
+                    },
+
+                    error: function(data) {
+                        var error = data.responseJSON.errors;
+                        var errorMessage = "";
+
+                        $.each(error, function(key, value) {
+                            errorMessage += value[0] + "<br>";
+                        });
+
+                        Swal.fire({
+                            title: 'error',
+                            html: errorMessage,
+                            icon: 'error',
+                            showConfirmButton: true
+                        });
+                    }
+                });
+            });
+        });
     </script>
 @endsection
