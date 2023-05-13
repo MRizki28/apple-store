@@ -38,6 +38,7 @@ class OrderanController extends Controller
             $orderan->qty = $request->qty;
             $orderan->total_price = $request->qty * $product->price;
    
+            
           
 
             // Set your Merchant Server Key
@@ -63,6 +64,9 @@ class OrderanController extends Controller
             $snapToken = \Midtrans\Snap::getSnapToken($params);
             $orderan->snapToken = $snapToken;
             $orderan->save();
+
+            $product->stock -= $request->qty;
+            $product->save();
 
         } catch (\Throwable $th) {
             return response()->json([
