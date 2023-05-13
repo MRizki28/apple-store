@@ -59,8 +59,8 @@ class OrderanController extends Controller
             // Validate stock availability
             if ($orderan->qty > $product->stock) {
                 return response()->json([
-                    'message' => 'failed',
-                    'errors' => 'Stock tidak cukup'
+                    'message' => 'Stock tidak cukup',
+                    'errors' => 'Stock is not enough'
                 ]);
             }
 
