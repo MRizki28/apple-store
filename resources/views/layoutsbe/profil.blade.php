@@ -20,10 +20,10 @@
 @yield('content')
 @include('sweetalert::alert')
 <!-- Register Content -->
-<script src="{{ asset('static/vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('static/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('static/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-<script src="{{ asset('static/js/ruang-admin.min.js') }}"></script>
+<script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<script src="{{ asset('admin/js/ruang-admin.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
